@@ -17,20 +17,26 @@ def main():
         
         # Check if the tweet has the "text" key.
         if 'text' in tweet:
-            #if tweet['lang'] == 'en':
+            if tweet['lang'] == 'en':
+                sentiment_sum = 0
+                
                 tweet_text = tweet['text'].encode('utf-8')
                 
                 # Make the tweet text all lower case in case there are some words with capitals, which wouldn't match our dict keys
                 tweet_text_lower = tweet_text.lower()
                 
-                sentiment_sum = 0
                 terms = tweet_text_lower.split()
+                
+                # If any term ends with punctuation such as period, exclamation mark, question mark, then remove the punctuation.
+                for i in range(len(terms)):
+                    terms[i] = terms[i].rstrip('.!?,:;-')
+                    
                 for term in terms:
                     if term in sentiment_scores:
                         sentiment_sum += sentiment_scores[term]
                     
-                #print '<' + tweet_text + ' : ' + str(sentiment_sum) + '>'
-                print sentiment_sum
+                print '<' + tweet_text + ' : ' + str(sentiment_sum) + '>'
+                #print sentiment_sum
 
         
 if __name__ == '__main__':
