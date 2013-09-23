@@ -1,15 +1,15 @@
+'''
+Created on Sep 22, 2013
+
+@author: Ryan
+'''
 import sys
 import json
 
-def main():
-    sentiment_file = open(sys.argv[1])
-    tweet_file = open(sys.argv[2])
+if __name__ == '__main__':
+    tweet_file = open(sys.argv[1])
     
-    sentiment_scores = {} # initialize an empty dictionary
-    
-    for line in sentiment_file:
-        term, score = line.split("\t") # The file is tab-delimited. "\t" means "tab character"
-        sentiment_scores[term] = int(score)  # Convert the score to an integer.
+    term_frequencies = {} # initialize an empty dictionary
 
     for line in tweet_file:
         # Convert the line to a JSON object so we can process it
@@ -32,12 +32,13 @@ def main():
                     terms[i] = terms[i].rstrip('.!?,:;-')
                     
                 for term in terms:
-                    if term in sentiment_scores:
-                        sentiment_sum += sentiment_scores[term]
-                    
-                #print '<' + tweet_text + ' : ' + str(sentiment_sum) + '>'
-                print sentiment_sum
-
+                    # If the term is in our dictionary, increment its frequency count
+                    if term in term_frequencies:
+                        term_frequencies[term] += 1
+                        
+                    # Otherwise add the term to the dictionary
+                    else:
+                        term_frequencies[term] = 1
         
-if __name__ == '__main__':
-    main()
+    for frequency in term_frequencies:
+        print frequency + " " + str(term_frequencies[frequency])
