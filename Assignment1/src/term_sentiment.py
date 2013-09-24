@@ -48,16 +48,13 @@ def main():
                 # add 1 to index 0 of the zero_sentiment_terms[term] array if the sentiment_sum is positive.
                 # Similarly, add 1 to index 1 if the sentiment_sum is negative.
                 for term in terms:
-                    if term not in sentiment_scores:
+                    if term in zero_sentiment_terms:
                         if sentiment_sum > 0:
                             zero_sentiment_terms[term][0] += 1
                         elif sentiment_sum < 0:
                             zero_sentiment_terms[term][1] += 1
-                        
-                #print '<' + tweet_text + ' : ' + str(sentiment_sum) + '>'
-                #print sentiment_sum
                 
-    # Go through the zero_sentiment_array and calculate the sentiment value based on the number of positive and negative
+    # Go through the zero_sentiment_terms and calculate the sentiment value based on the number of positive and negative
     # tweets that the term was a part of.
     for term in zero_sentiment_terms:
         is_negative_sentiment = zero_sentiment_terms[term][0] < zero_sentiment_terms[term][1]

@@ -10,6 +10,7 @@ if __name__ == '__main__':
     tweet_file = open(sys.argv[1])
     
     term_frequencies = {} # initialize an empty dictionary
+    total_term_count = 0.0
 
     for line in tweet_file:
         # Convert the line to a JSON object so we can process it
@@ -39,6 +40,8 @@ if __name__ == '__main__':
                     # Otherwise add the term to the dictionary
                     else:
                         term_frequencies[term] = 1
+                        
+                    total_term_count += 1.0
         
     for frequency in term_frequencies:
-        print frequency + " " + str(term_frequencies[frequency])
+        print frequency + " " + str(term_frequencies[frequency] / total_term_count)
