@@ -15,8 +15,6 @@ def mapper(record):
     mr.emit_intermediate(order_id, record)
 
 def reducer(key, list_of_values):
-    #joined_records = []
-    
     # Get the order item first, to populate the first fields
     order_record = []
     for record in list_of_values:
@@ -36,13 +34,8 @@ def reducer(key, list_of_values):
             # Append the line_item values
             for x in range(len(record)):
                 line_item.append(record[x])
-                
-            #joined_records.append(line_item)
             
-            #mr.emit((key, line_item))
             mr.emit(line_item)
-        
-    #mr.emit((key, joined_records))
     
 if __name__ == '__main__':
     # Part 4 
