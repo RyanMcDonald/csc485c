@@ -11,6 +11,7 @@ Registered Stack Exchange app: http://stackapps.com/apps/oauth/view/2152
 import urllib2
 import simplejson
 import zlib
+import sys
 
 key = "i45cYLdEkMGDw4Asznw01w(("
 client_id = "2152"
@@ -21,10 +22,28 @@ client_secret = "OzWnbQ0nD7NtaoOJJsh5oA(("
 # and approving our app. Then copy the access_token from the address bar.
 access_token = "SNTWOGnJvWqOoHN2GU0*OQ))"
 
-url = 'https://api.stackexchange.com/2.1/search?key=' + key + '&access_token=' + access_token + '&page=1&pagesize=1&order=desc&sort=activity&tagged=java&site=stackoverflow&filter=withbody'
+site = 'stackoverflow'
+page = '1'
+page_size = '2'
+sort_order = 'desc'
+sort_value = 'activity'
+se_filter = 'withbody'
+
 #print url
 
-response = urllib2.urlopen(url)
-response = response.read()
-jsonData = zlib.decompress(response, 16 + zlib.MAX_WBITS)
-print simplejson.loads(jsonData)
+def get_search_by_tag_json(tag):
+    url = 'https://api.stackexchange.com/2.1/search?key=' + key + '&access_token=' + access_token + '&page=' + page + '&pagesize=' + page_size + '&order=' + sort_order + '&sort=' + sort_value + '&tagged=' + tag + '&site=' + site + '&filter=' + se_filter
+    #print url
+    
+    response = urllib2.urlopen(url)
+    response = response.read()
+    json_data = zlib.decompress(response, 16 + zlib.MAX_WBITS)
+    return simplejson.loads(json_data)
+    
+if __name__ == '__main__':
+    tag = open(sys.argv[1])
+    
+    java_json = get_search_by_tag_json(tag)
+    for question in java_json['items']:
+        print question
+    
