@@ -41,7 +41,7 @@ def get_search_by_tag_json(tag):
     return simplejson.loads(json_data)
     
 if __name__ == '__main__':
-    tag = open(sys.argv[1])
+    tag = sys.argv[1]
     
     java_json = get_search_by_tag_json(tag)
     for question in java_json['items']:
