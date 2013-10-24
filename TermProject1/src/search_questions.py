@@ -1,7 +1,7 @@
 '''
 Created on Oct 22, 2013
 
-An app to collect data from Stack Exchange to see who the happiest programmers are.
+A program that searches Stack Exchange sites for questions with specific tags.
 
 Registered Stack Exchange app: http://stackapps.com/apps/oauth/view/2152
 
@@ -29,10 +29,28 @@ sort_order = 'desc'
 sort_value = 'activity'
 se_filter = 'withbody'
 
-#print url
+from_date_2011 = '1319241600'
+to_date_2011 = '1319328000'
+from_date_2012 = '1350864000'
+to_date_2012 = '1350950400'
+from_date_2013 = '1382400000'
+to_date_2013 = '1382486400'
 
-def get_search_by_tag_json(tag):
-    url = 'https://api.stackexchange.com/2.1/search?key=' + key + '&access_token=' + access_token + '&page=' + page + '&pagesize=' + page_size + '&order=' + sort_order + '&sort=' + sort_value + '&tagged=' + tag + '&site=' + site + '&filter=' + se_filter
+def get_search_by_tag_json(tag, year):
+    from_date = ''
+    to_date = ''
+    
+    if (year == '2011'):
+        from_date = from_date_2011
+        to_date = to_date_2011
+    elif (year == '2012'):
+        from_date = from_date_2012
+        to_date = to_date_2012
+    elif (year == '2013'):
+        from_date = from_date_2013
+        to_date = to_date_2013
+        
+    url = 'https://api.stackexchange.com/2.1/search?key=' + key + '&access_token=' + access_token + '&page=' + page + '&fromdate=' + from_date + '&todate=' + to_date + '&order=' + sort_order + '&sort=' + sort_value + '&tagged=' + urllib2.quote(tag) + '&site=' + site + '&filter=' + se_filter
     #print url
     
     response = urllib2.urlopen(url)
@@ -42,8 +60,9 @@ def get_search_by_tag_json(tag):
     
 if __name__ == '__main__':
     tag = sys.argv[1]
+    year = sys.argv[2]
     
-    java_json = get_search_by_tag_json(tag)
+    java_json = get_search_by_tag_json(tag, year)
     for question in java_json['items']:
         print question
     
