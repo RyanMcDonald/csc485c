@@ -55,14 +55,15 @@ def get_search_by_tag_json(tag, year):
     
     response = urllib2.urlopen(url)
     response = response.read()
-    json_data = zlib.decompress(response, 16 + zlib.MAX_WBITS)
-    return simplejson.loads(json_data)
+    #print response
+    
+    response = zlib.decompress(response, 16 + zlib.MAX_WBITS)
+    return response
     
 if __name__ == '__main__':
     tag = sys.argv[1]
     year = sys.argv[2]
     
-    java_json = get_search_by_tag_json(tag, year)
-    for question in java_json['items']:
-        print question
+    questions_json = get_search_by_tag_json(tag, year)
+    print questions_json
     
