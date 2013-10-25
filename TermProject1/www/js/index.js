@@ -1,14 +1,12 @@
-var selected_languages = new Array();
-var sentiment_totals = new Array();
+var selected_languages = new Array(); // Used to hold the currently selected programming language
+var sentiment_totals = new Array(); // An associative array storing the total sentiment values for each language
 
+// Bind the button click action to the function
 $('#submit-form-button').on('click', my_function);
 
-// Load the Visualization API and the piechart package.
+// Load the Visualization API and the chart package.
 google.load('visualization', '1.0', {'packages':['corechart']});
 
-// Set a callback to run when the Google Visualization API is loaded.
-//google.setOnLoadCallback(drawChart);
-			
 function my_function()
 {
 	// Clear the selected_languages array first
@@ -61,10 +59,6 @@ function drawChart() {
 	
 	// Create the data table.
 	var data = google.visualization.arrayToDataTable([
-			/* ['Year',	'Java',				'C++'],
-			['2011',  parseInt(sentiment_totals["java_2011"]), parseInt(sentiment_totals["cpp_2011"])],
-			['2012',  parseInt(sentiment_totals["java_2012"]), parseInt(sentiment_totals["cpp_2012"])],
-			['2013',  parseInt(sentiment_totals["java_2013"]), parseInt(sentiment_totals["cpp_2013"])] */
 			titles,
 			sentiment_totals_2011,
 			sentiment_totals_2012,
