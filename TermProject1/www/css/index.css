@@ -1,0 +1,28 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 1px;
+}
+
+#language-checkboxes {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+#input-container {
+	text-align: center;
+}
+
+#submit-form-button {
+	display: block;
+	margin: 0 auto;
+	border: 0;
+	padding: 10px 20px;
+	border-radius: 6px;
+	margin-top: 15px;
+	background-color: cadetblue;
+	color: white;
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 1px;
+}
